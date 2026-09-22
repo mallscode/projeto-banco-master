@@ -169,8 +169,6 @@ body.fundo {
 }
 
 
-/* BOTÃO */
-
 .formulario .btn {
     width: 100%;
 
@@ -211,9 +209,6 @@ body.fundo {
 .formulario .btn:active {
     transform: translateY(0);
 }
-
-
-/* RESPONSIVIDADE */
 
 @media (max-width: 600px) {
 

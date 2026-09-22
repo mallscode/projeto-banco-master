@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -83,20 +83,27 @@
 
         <h4 id="mensagemErro" class="mensagemErro text-danger mt-2"></h4>
 
+        <button class="btn btn-outline-success mt-4" id="buttonReset">Resetar conta</button>
     </main>
 
 
     <script>
         const valorSaldo = document.getElementById("valorSaldo");
         const mostrarSaldo = document.getElementById("mostrarSaldo");
-        let saldo = 1621;
+        let saldo = parseFloat(localStorage.getItem("saldo")) || 1621;
         let valorDep = document.getElementById('valorDeposito');
         const btnDepositar = document.getElementById("btnDepositar");
         let valorSaq = document.getElementById('valorSaque');
         const btnSacar = document.getElementById("btnSacar");
         const msgErro = document.getElementById('mensagemErro');
+        let movimentacoes = JSON.parse(localStorage.getItem("movimentacoes")) || [];
+        const btnReset = document.getElementById('buttonReset');
 
-
+        btnReset.addEventListener("click", function () {
+            localStorage.clear();
+            saldo = 1621;
+            localStorage.setItem("saldo", saldo);
+        });
 
         btnDepositar.addEventListener("click", function () {
 
@@ -105,12 +112,22 @@
 
             if (isNaN(valor) || valor <= 0) {
                 msgErro.textContent = 'Digite um valor válido.';
+                valorDep.value = "";
                 return;
             } else {
                 saldo += valor;
+                localStorage.setItem("saldo", saldo);
                 console.log("Novo saldo:", saldo);
                 valorDep.value = "";
                 msgErro.textContent = '';
+
+                movimentacoes.push({
+                    tipo: "Depósito",
+                    valor: valor,
+                    data: new Date().toLocaleDateString("pt-BR")
+                });
+
+                localStorage.setItem("movimentacoes", JSON.stringify(movimentacoes));
             }
 
 
@@ -123,23 +140,31 @@
 
             if (isNaN(valor) || valor <= 0) {
                 msgErro.textContent = 'Digite um valor válido.';
+                valorSaq.value = "";
                 return;
             } else {
                 if (saldo < valor) {
                     msgErro.textContent = 'Saldo insuficiente!';
                 } else {
                     saldo -= valor;
+                    localStorage.setItem("saldo", saldo);
                     console.log("Novo saldo:", saldo);
                     valorSaq.value = "";
-                     msgErro.textContent = '';
+                    msgErro.textContent = '';
+
+                    movimentacoes.push({
+                        tipo: "Saque",
+                        valor: valor,
+                        data: new Date().toLocaleDateString("pt-BR")
+                    });
+
+                    localStorage.setItem("movimentacoes", JSON.stringify(movimentacoes));
                 }
 
             }
 
 
         });
-
-
 
         mostrarSaldo.addEventListener("click", function () {
 
@@ -154,8 +179,6 @@
             }
 
         });
-
-
     </script>
 </body>
 

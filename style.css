@@ -301,6 +301,37 @@ body.fundo {
     color: #87938b;
 }
 
+.lista-movimentacoes {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    max-width: 850px;
+}
+
+.objetos-lista-movimentacoes{
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 11px;
+    background: linear-gradient(
+        135deg,
+        #0f3015,
+        #081b0c
+    );
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    border: solid 1px lightgreen;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
 .btn-depositar {
     width: 100%;
 

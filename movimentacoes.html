@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -31,11 +31,50 @@
 
     <main class="conteudo">
 
-        <h1>Movimentações da Conta</h1>
-        <p>Analise detalhdamente todas as movimentações de dinheiro da sua conta.</p>
+        <h1>Movimentações da conta</h1>
+        <p class="subtitulo">Confira todas as operações realizadas em sua conta.</p>
+        <h6 id="statusMovimentacao">Nenhuma movimentação realizada ainda.</h6>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div id="listaMovimentacoes" class="lista-movimentacoes">
+                    
+                    </div>
+                </div>
+                <div class="col-6">
+                    
+                </div>
+            </div>
+        </div>
+
+
 
     </main>
 
+    <script>
+
+        let movimentacoes = JSON.parse(localStorage.getItem("movimentacoes")) || [];
+        const statusMovimentacao = document.getElementById("statusMovimentacao");
+        if (movimentacoes.length > 0){
+            statusMovimentacao.innerText = '';
+        }
+
+        const lista = document.getElementById("listaMovimentacoes");
+
+        movimentacoes.forEach(function (movimentacao) {
+
+            lista.innerHTML += `
+            <div class="objetos-lista-movimentacoes">
+                <strong>${movimentacao.tipo}</strong>
+                <span>${movimentacao.data}</span>
+                <span>R$ ${movimentacao.valor.toFixed(2).replace(".", ",")}</span>
+            </div>
+        `;
+
+        });
+
+    </script>
 </body>
 
 </html>
