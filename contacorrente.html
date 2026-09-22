@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco Master - Conta Corrente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="fundo">
+
+    <aside class="barra-lateral">
+
+        <div class="logo">
+            Banco Master
+        </div>
+
+        <nav>
+            <a href="contacorrente.html" class="ativo">Conta Corrente</a>
+            <a href="movimentacoes.html">Movimentações</a>
+            <a href="poupanca.html">Poupança</a>
+        </nav>
+
+        <a href="index.html" class="sair">Sair</a>
+
+    </aside>
+
+
+    <main class="conteudo">
+
+        <h1>Conta Corrente</h1>
+        <p>Verifique sua conta bancária de depósito à vista usada para movimentar o dinheiro do dia a dia com acesso
+            rápido a qualquer momento.</p>
+
+
+        <p class="saldo">
+            Saldo:
+            <span id="valorSaldo" class="oculto">R$ ••••••</span>
+
+            <button id="mostrarSaldo" class="botao-saldo">
+                Mostrar
+            </button>
+        </p>
+
+    </main>
+
+
+    <script>
+        const valorSaldo = document.getElementById("valorSaldo");
+        const mostrarSaldo = document.getElementById("mostrarSaldo");
+
+        mostrarSaldo.addEventListener("click", function () {
+
+            if (valorSaldo.classList.contains("oculto")) {
+                valorSaldo.textContent = "R$ 1.500,00";
+                valorSaldo.classList.remove("oculto");
+                mostrarSaldo.textContent = "Ocultar";
+            } else {
+                valorSaldo.textContent = "R$ ••••••";
+                valorSaldo.classList.add("oculto");
+                mostrarSaldo.textContent = "Mostrar";
+            }
+
+        });
+    </script>
+</body>
+
+</html>
