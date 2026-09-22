@@ -45,17 +45,106 @@
             </button>
         </p>
 
+        <div class="opcoes">
+            <div class="card deposito">
+                <div class="card-body">
+                    <h5 class="card-title">Depositar</h5>
+                    <p class="card-text">
+                        Adicione dinheiro à sua conta corrente de forma rápida e segura.
+                    </p>
+                    <label for="valorDeposito">Valor do depósito</label>
+                    <div class="campo-valor">
+                        <span>R$</span>
+                        <input type="text" id="valorDeposito" placeholder="0,00" inputmode="decimal">
+                    </div>
+                    <button class="btn-depositar" id="btnDepositar">
+                        Depositar
+                    </button>
+                </div>
+            </div>
+
+            <div class="card deposito">
+                <div class="card-body">
+                    <h5 class="card-title">Sacar</h5>
+                    <p class="card-text">
+                        Saque dinheiro da sua conta corrente de forma rápida e segura.
+                    </p>
+                    <label for="valorSaque">Valor do saque</label>
+                    <div class="campo-valor">
+                        <span>R$</span>
+                        <input type="text" id="valorSaque" placeholder="0,00" inputmode="decimal">
+                    </div>
+                    <button class="btn-depositar" id="btnSacar">
+                        Sacar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <h4 id="mensagemErro" class="mensagemErro text-danger mt-2"></h4>
+
     </main>
 
 
     <script>
         const valorSaldo = document.getElementById("valorSaldo");
         const mostrarSaldo = document.getElementById("mostrarSaldo");
+        let saldo = 1621;
+        let valorDep = document.getElementById('valorDeposito');
+        const btnDepositar = document.getElementById("btnDepositar");
+        let valorSaq = document.getElementById('valorSaque');
+        const btnSacar = document.getElementById("btnSacar");
+        const msgErro = document.getElementById('mensagemErro');
+
+
+
+        btnDepositar.addEventListener("click", function () {
+
+            let valor = valorDep.value.replace(",", ".");
+            valor = parseFloat(valor);
+
+            if (isNaN(valor) || valor <= 0) {
+                msgErro.textContent = 'Digite um valor válido.';
+                return;
+            } else {
+                saldo += valor;
+                console.log("Novo saldo:", saldo);
+                valorDep.value = "";
+                msgErro.textContent = '';
+            }
+
+
+        });
+
+        btnSacar.addEventListener("click", function () {
+
+            let valor = valorSaq.value.replace(",", ".");
+            valor = parseFloat(valor);
+
+            if (isNaN(valor) || valor <= 0) {
+                msgErro.textContent = 'Digite um valor válido.';
+                return;
+            } else {
+                if (saldo < valor) {
+                    msgErro.textContent = 'Saldo insuficiente!';
+                } else {
+                    saldo -= valor;
+                    console.log("Novo saldo:", saldo);
+                    valorSaq.value = "";
+                     msgErro.textContent = '';
+                }
+
+            }
+
+
+        });
+
+
 
         mostrarSaldo.addEventListener("click", function () {
 
             if (valorSaldo.classList.contains("oculto")) {
-                valorSaldo.textContent = "R$ 1.500,00";
+                valorSaldo.textContent = "R$ " + saldo;
                 valorSaldo.classList.remove("oculto");
                 mostrarSaldo.textContent = "Ocultar";
             } else {
@@ -65,6 +154,8 @@
             }
 
         });
+
+
     </script>
 </body>
 
