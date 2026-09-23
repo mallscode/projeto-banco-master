@@ -240,11 +240,32 @@ body.fundo {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
+.estatisticas-card {
+    width: 280px;
+    background: #0d2114;
+    color: white;
+
+    border: 1px solid rgba(84, 189, 107, 0.25);
+    border-radius: 18px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
 .deposito .card-body {
     padding: 25px;
 }
 
+.estatisticas-card .card-body {
+    padding: 25px;
+}
+
 .deposito .card-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.estatisticas-card .card-title {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 8px;
@@ -258,6 +279,13 @@ body.fundo {
 }
 
 .deposito label {
+    display: block;
+    color: #c8d5cb;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.estatisticas-card label {
     display: block;
     color: #c8d5cb;
     font-size: 14px;

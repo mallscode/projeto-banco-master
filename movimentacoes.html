@@ -36,14 +36,69 @@
         <h6 id="statusMovimentacao">Nenhuma movimentação realizada ainda.</h6>
 
         <div class="container">
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col-6">
+                    <h5>Extrato</h5>
                     <div id="listaMovimentacoes" class="lista-movimentacoes">
-                    
+
                     </div>
                 </div>
                 <div class="col-6">
-                    
+
+
+                    <h5>Estatísticas</h5>
+
+                    <div class="row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <div class="card estatisticas-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total de movimentações: <h7 id="quantidadeMovimentacoes">
+                                        </h7>
+                                    </h5>
+                                    <p class="card-text">O total de movimentações realizadas nessa conta.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="card estatisticas-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total sacado: R$ <h7 id="totalSaque">
+                                        </h7>
+                                    </h5>
+                                    <p class="card-text">A soma de todos os saques realizados.</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 mt-4">
+                            <div class="card estatisticas-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total depositado: R$ <h7 id="totalDeposito">
+                                        </h7>
+                                    </h5>
+                                    <p class="card-text">A soma de todos os depósitos realizados.</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="card estatisticas-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Movimentação geral: R$ <h7 id="movimentacaoGerais">
+                                        </h7>
+                                    </h5>
+                                    <p class="card-text">O valor de movimentação geral.</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -56,13 +111,38 @@
 
         let movimentacoes = JSON.parse(localStorage.getItem("movimentacoes")) || [];
         const statusMovimentacao = document.getElementById("statusMovimentacao");
-        if (movimentacoes.length > 0){
+        const quantidadeMovimentacoes = document.getElementById("quantidadeMovimentacoes");
+        const totalSaque = document.getElementById("totalSaque");
+        const totalDeposito = document.getElementById("totalDeposito");
+        const movimentacaoGerais = document.getElementById("movimentacaoGerais");
+        let quantMovimentacoes = 0;
+        let totalDepositos = 0;
+        let totalSaques = 0;
+
+        if (movimentacoes.length > 0) {
             statusMovimentacao.innerText = '';
         }
 
         const lista = document.getElementById("listaMovimentacoes");
 
         movimentacoes.forEach(function (movimentacao) {
+
+            if (movimentacao.tipo === "Depósito") {
+                totalDepositos += movimentacao.valor;
+            }
+
+        });
+
+        movimentacoes.forEach(function (movimentacao) {
+
+            if (movimentacao.tipo === "Saque") {
+                totalSaques += movimentacao.valor;
+            }
+
+        });
+
+        movimentacoes.forEach(function (movimentacao) {
+            quantMovimentacoes += 1;
 
             lista.innerHTML += `
             <div class="objetos-lista-movimentacoes">
@@ -73,6 +153,12 @@
         `;
 
         });
+
+        quantidadeMovimentacoes.innerText = quantMovimentacoes;
+        totalSaque.innerText = totalSaques;
+        totalDeposito.innerText = totalDepositos;
+        let movimentacaoGeral = totalDepositos - totalSaques;
+        movimentacaoGerais.innerText = movimentacaoGeral;
 
     </script>
 </body>
